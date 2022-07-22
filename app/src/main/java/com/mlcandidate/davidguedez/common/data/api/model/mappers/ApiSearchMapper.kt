@@ -1,13 +1,13 @@
 package com.mlcandidate.davidguedez.common.data.api.model.mappers
 
 import com.mlcandidate.davidguedez.common.data.api.model.ApiProduct
-import com.mlcandidate.davidguedez.common.data.api.model.ApiSearch
+import com.mlcandidate.davidguedez.common.data.api.model.ApiSearchProduct
 import com.mlcandidate.davidguedez.common.domain.model.Product
-import com.mlcandidate.davidguedez.common.domain.model.Search
+import com.mlcandidate.davidguedez.common.domain.model.SearchProduct
 
-class ApiSearchMapper(private val apiProductMapper: ApiProductMapper) : ApiMapper<ApiSearch, Search> {
-    override fun mapToDomain(apiEntity: ApiSearch): Search {
-        return Search(
+class ApiSearchMapper(private val apiProductMapper: ApiProductMapper) : ApiMapper<ApiSearchProduct, SearchProduct> {
+    override fun mapToDomain(apiEntity: ApiSearchProduct): SearchProduct {
+        return SearchProduct(
             query = apiEntity.query.orEmpty(),
             results = parseProductsList(apiEntity.productResults)
         )
