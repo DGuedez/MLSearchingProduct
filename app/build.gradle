@@ -51,6 +51,7 @@ dependencies {
     def hilt_version = "2.42"
     def httpLogging_version = "4.10.0"
     def coroutine_version = "1.6.4"
+    def moshi_version = "1.13.0"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -58,7 +59,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$httpLogging_version"
-    implementation "com.google.code.gson:gson:$retrofit_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
