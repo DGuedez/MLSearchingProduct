@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="16dp"
+    android:background="#f2eb63"
     tools:context=".searchproduct.presentation.SearchProductFragment">
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchWidget"
+        android:id="@+id/product_search_view"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,14 +22,30 @@
         app:queryHint="@string/search_hint" />
 
     <ProgressBar
-        android:id="@+id/search_remotely_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/product_search_progress_bar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="50dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchWidget" />
+        app:layout_constraintTop_toBottomOf="@id/product_search_view" />
+
+    <TextView
+        android:id="@+id/product_search_not_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:visibility="visible"
+        android:textStyle="bold"
+        android:lineSpacingExtra="10dp"
+        android:text="@string/no_product_result_found"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_search_view" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
