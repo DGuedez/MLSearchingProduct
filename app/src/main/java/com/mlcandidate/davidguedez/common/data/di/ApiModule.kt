@@ -1,9 +1,10 @@
 package com.mlcandidate.davidguedez.common.data.di
 
 
-import com.mlcandidate.davidguedez.common.data.SearchProductRepository
 import com.mlcandidate.davidguedez.common.data.api.ApiConstants
 import com.mlcandidate.davidguedez.common.data.api.APIProductService
+import com.mlcandidate.davidguedez.common.data.api.interceptors.NetworkStatusInterceptor
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,40 +19,30 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
-
-
-    @Singleton
+    
     @Provides
-    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor()
-        .apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
     @Singleton
-    @Provides
-    fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
-        OkHttpClient
-            .Builder()
-            .addInterceptor(httpLoggingInterceptor)
+    fun provideApi(builder: Retrofit.Builder): APIProductService {
+        return builder
             .build()
+            .create(APIProductService::class.java)
+    }
 
-    @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl(ApiConstants.BASE_URL)
-        .client(okHttpClient)
-        .build()
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
+        return Retrofit.Builder()
+            .baseUrl(ApiConstants.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create())
+    }
 
-    @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): APIProductService =
-        retrofit.create(APIProductService::class.java)
-
-    @Singleton
-    @Provides
-    fun providesRepository(apiService: APIProductService) = SearchProductRepository(apiService)
-
-
+    fun provideOkHttpClient(
+        networkStatusInterceptor: NetworkStatusInterceptor,
+        ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(networkStatusInterceptor)
+            .build()
+    }
 
 }

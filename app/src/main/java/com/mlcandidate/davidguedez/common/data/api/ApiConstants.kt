@@ -5,5 +5,6 @@ object ApiConstants {
 }
 
 object ApiParameters{
-    private var SITE_ID_MLC: String =  "MLC"
+    const val SITE_ID_MLC: String =  "MLC"
+    const val SEARCH_QUERY = "q"
 }

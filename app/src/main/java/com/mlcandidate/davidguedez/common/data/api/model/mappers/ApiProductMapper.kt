@@ -1,9 +1,10 @@
 package com.mlcandidate.davidguedez.common.data.api.model.mappers
 
 import com.mlcandidate.davidguedez.common.data.api.model.ApiProduct
-import com.mlcandidate.davidguedez.common.domain.model.Product
+import com.mlcandidate.davidguedez.common.domain.model.product.Product
+import javax.inject.Inject
 
-class ApiProductMapper(private val apiInstallmentsMapper: ApiInstallmentsMapper): ApiMapper<ApiProduct?,Product> {
+class ApiProductMapper @Inject constructor(private val apiInstallmentsMapper: ApiInstallmentsMapper): ApiMapper<ApiProduct?, Product> {
     override fun mapToDomain(apiEntity: ApiProduct?): Product {
         return Product(
             id = apiEntity?.id ?: throw MappingException("Product ID can't be null"),

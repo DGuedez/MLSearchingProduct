@@ -1,4 +1,4 @@
-package com.mlcandidate.davidguedez.common.domain.model
+package com.mlcandidate.davidguedez.common.domain.model.product
 
 data class Product(
     val id: String,

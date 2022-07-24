@@ -1,4 +1,4 @@
-package com.mlcandidate.davidguedez.common.domain.model
+package com.mlcandidate.davidguedez.common.domain.model.product
 
 
 sealed class Installment {

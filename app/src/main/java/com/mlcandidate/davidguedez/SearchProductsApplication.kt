@@ -5,5 +5,4 @@ import dagger.hilt.android.HiltAndroidApp
 
 
 @HiltAndroidApp
-class SearchProductsApplication: Application() {
-}
+class SearchProductsApplication: Application()
