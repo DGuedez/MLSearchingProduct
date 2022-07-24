@@ -10,7 +10,7 @@ interface APIProductService {
 
     @GET("/sites/{siteId}/search")
     suspend fun searchProduct(
-        @Path("siteId") siteId: String,
+        @Path("siteId") siteId: String = ApiParameters.SITE_ID_MLC,
         @Query(ApiParameters.SEARCH_QUERY) query: String
     ): ApiSearchProduct
 }
