@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/foundProductsResult"
-        android:name="com.mlcandidate.davidguedez.foundproducts.FoundProductsFragment"
+        android:name="com.mlcandidate.davidguedez.foundproducts.presentation.FoundProductsFragment"
         android:label="fragment_products_search_result"
         tools:layout="@layout/fragment_found_products_result" />
 </navigation>

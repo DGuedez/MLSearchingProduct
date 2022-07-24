@@ -1,14 +1,16 @@
 package com.mlcandidate.davidguedez.searchproduct.presentation
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mlcandidate.davidguedez.common.domain.model.product.Product
 import com.mlcandidate.davidguedez.common.presentation.Event
+import com.mlcandidate.davidguedez.common.presentation.mappers.UIProductMapper
 import com.mlcandidate.davidguedez.common.utils.DispatchersProvider
 import com.mlcandidate.davidguedez.common.utils.createExceptionHandler
+import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import com.mlcandidate.davidguedez.searchproduct.domain.RequestProductSearchUseCase
 import com.mlcandidate.davidguedez.searchproduct.presentation.model.EmptyQueryException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,11 +21,12 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchProductViewModel @Inject constructor(
     private val dispatchersProvider: DispatchersProvider,
-    private val requestProductSearch: RequestProductSearchUseCase
+    private val requestProductSearch: RequestProductSearchUseCase,
+    private val uiProductMapper: UIProductMapper
 ) : ViewModel() {
 
     val state: LiveData<SearchProductViewState> get() = _state
-
+    private var foundProductsResult: List<UIProduct>? = null
 
     private val _state = MutableLiveData<SearchProductViewState>()
 
@@ -31,11 +34,13 @@ class SearchProductViewModel @Inject constructor(
         _state.value = SearchProductViewState()
     }
 
-    fun onEvent(event: SearchProductEvent) {
+    fun onSearchProductEvent(event: SearchProductEvent) {
         when (event) {
             is SearchProductEvent.RequestSearch -> handleSearchQuery(event.query)
         }
     }
+
+    fun getFoundProductList() = foundProductsResult
 
     private fun handleSearchQuery(query: String) {
         if (query.isEmpty()) {
@@ -52,13 +57,21 @@ class SearchProductViewModel @Inject constructor(
             val productSearchResult = withContext(dispatchersProvider.io()) {
                 requestProductSearch(query)
             }
-            generateProductListContentState(productSearchResult)
+            foundProductsResult =
+                productSearchResult.map { uiProductMapper.mapToView(it) }.also { list ->
+                    generateProductListContentState(list)
+                }
+
         }
     }
 
-    private fun generateProductListContentState(productSearchResult: List<Product>) {
-        _state.value = state.value!!.copy(loading = false, noProductFound = null, failure = null)
-        Log.d("viewmodel-product", productSearchResult.first().title)
+    private fun generateProductListContentState(productSearchResult: List<UIProduct>) {
+        _state.value = state.value!!.copy(
+            loading = false,
+            noProductFound = null,
+            failure = null,
+            productResults = productSearchResult
+        )
     }
 
 

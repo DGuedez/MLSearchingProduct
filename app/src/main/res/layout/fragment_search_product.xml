@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="16dp"
-    android:background="#f2eb63"
+    android:background="@color/home_background"
     tools:context=".searchproduct.presentation.SearchProductFragment">
 
     <androidx.appcompat.widget.SearchView
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center_horizontal"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textStyle="bold"
         android:lineSpacingExtra="10dp"
         android:text="@string/no_product_result_found"

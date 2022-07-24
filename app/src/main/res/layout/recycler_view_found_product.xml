@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/default_card_size"
+    android:layout_marginVertical="@dimen/card_vertical_margin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/home_background">
+
+        <ImageView
+            android:id="@+id/found_product_thumbnail"
+            android:layout_width="@dimen/card_image_dimension"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/card_image_start_space"
+            android:layout_marginStart="@dimen/card_image_start_space"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@android:drawable/ic_menu_camera" />
+
+
+        <TextView
+            android:id="@+id/found_product_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/card_title_start_end_space"
+            android:layout_marginEnd="@dimen/card_title_start_end_space"
+            android:textSize="@dimen/card_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/found_product_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/found_product_thumbnail"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="This is a totally brand new product!" />
+
+        <TextView
+            android:id="@+id/found_product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/card_price_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/found_product_installments"
+            app:layout_constraintStart_toStartOf="@+id/found_product_title"
+            app:layout_constraintTop_toBottomOf="@+id/found_product_title"
+            tools:text="$27.990" />
+
+        <TextView
+            android:id="@+id/found_product_installments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/card_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/found_product_arrival"
+            app:layout_constraintStart_toStartOf="@+id/found_product_title"
+            app:layout_constraintTop_toBottomOf="@+id/found_product_price"
+            tools:text="en 12 x 2.332 sin interés" />
+
+        <TextView
+            android:id="@+id/found_product_arrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#6aa84f"
+            android:paddingHorizontal="@dimen/card_text_background_padding_size"
+            android:textColor="@color/white"
+            android:textSize="@dimen/card_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/found_product_installments"
+            app:layout_constraintTop_toBottomOf="@+id/found_product_installments"
+            tools:text="Llega mañana" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -5,5 +5,13 @@
     <string name="no_product_result_found">No se encontró ningún resultado del producto. Intente nuevamente con otro.</string>
     <string name="default_failure_message">Ha ocurrido un error, por favor intente nuevamente.</string>
     <string name="no_network_available">No hay servicio de red disponible.</string>
+    <string name="installment_in">en</string>
+    <string name="installment_multiplication">X</string>
+    <string name="installment_without_fee">sin interés</string>
+    <string name="shipping_arrives">llega</string>
+    <string name="shipping_free">gratis</string>
+    <string name="shipping_arrives_tomorrow">mañana</string>
+    <string name="empty_space">\u0020</string>
+    <string name="currency_symbol">$</string>
 
 </resources>
