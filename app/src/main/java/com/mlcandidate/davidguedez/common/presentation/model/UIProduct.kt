@@ -8,5 +8,6 @@ data class UIProduct(
     val thumbnail: String,
     val installmentQuantity: String,
     val InstallmentAmount: String,
-    val productFreeShipping: Boolean
+    val productFreeShipping: Boolean,
+    val detailUrlLink: String
 )

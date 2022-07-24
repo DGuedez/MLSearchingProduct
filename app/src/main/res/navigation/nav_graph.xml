@@ -21,5 +21,21 @@
         android:id="@+id/foundProductsResult"
         android:name="com.mlcandidate.davidguedez.foundproducts.presentation.FoundProductsFragment"
         android:label="fragment_products_search_result"
-        tools:layout="@layout/fragment_found_products_result" />
+        tools:layout="@layout/fragment_found_products_result" >
+        <action
+            android:id="@+id/action_foundProductsResult_to_detailsProductFragment"
+            app:destination="@id/detailsProductFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsProductFragment"
+        android:name="com.mlcandidate.davidguedez.detailsproduct.presentation.DetailsProductFragment"
+        android:label="fragment_details_product"
+        tools:layout="@layout/fragment_details_product" >
+        <argument
+            android:name="deatils_url"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>

@@ -13,5 +13,7 @@
     <string name="shipping_arrives_tomorrow">mañana</string>
     <string name="empty_space">\u0020</string>
     <string name="currency_symbol">$</string>
+    <string name="found_product_has_not_details">No es posible ver los detalles de este producto. Intente con otro producto.</string>
+
 
 </resources>
