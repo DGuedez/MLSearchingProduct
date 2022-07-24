@@ -1,17 +1,17 @@
-package com.mlcandidate.davidguedez.searchproduct.presentation
+package com.mlcandidate.davidguedez.common.presentation
 
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mlcandidate.davidguedez.common.domain.model.product.Product
-import com.mlcandidate.davidguedez.common.presentation.Event
 import com.mlcandidate.davidguedez.common.presentation.mappers.UIProductMapper
 import com.mlcandidate.davidguedez.common.utils.DispatchersProvider
 import com.mlcandidate.davidguedez.common.utils.createExceptionHandler
 import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import com.mlcandidate.davidguedez.searchproduct.domain.RequestProductSearchUseCase
+import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductEvent
+import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductViewState
 import com.mlcandidate.davidguedez.searchproduct.presentation.model.EmptyQueryException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchProductViewModel @Inject constructor(
+class FetchProductsQueryViewModel @Inject constructor(
     private val dispatchersProvider: DispatchersProvider,
     private val requestProductSearch: RequestProductSearchUseCase,
     private val uiProductMapper: UIProductMapper

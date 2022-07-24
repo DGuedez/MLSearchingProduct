@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mlcandidate.davidguedez.databinding.FragmentFoundProductsResultBinding
 import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
-import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductViewModel
+import com.mlcandidate.davidguedez.common.presentation.FetchProductsQueryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FoundProductsFragment : Fragment() {
     private var _binding: FragmentFoundProductsResultBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SearchProductViewModel by activityViewModels()
+    private val viewModel: FetchProductsQueryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
