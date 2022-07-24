@@ -14,7 +14,8 @@ class UIProductMapper @Inject constructor() : UIMapper<Product, UIProduct> {
             thumbnail = input.thumbnail,
             installmentQuantity = getInstallmentQuantity(input),
             InstallmentAmount = getInstallmentAmount(input),
-            productFreeShipping = getShippingInfo(input.installments)
+            productFreeShipping = getShippingInfo(input.installments),
+            detailUrlLink = input.detailsUrl
         )
     }
 

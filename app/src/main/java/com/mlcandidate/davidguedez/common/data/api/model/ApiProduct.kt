@@ -9,5 +9,6 @@ data class ApiProduct(
     @field:Json(name = "title") val title: String?,
     @field:Json(name = "price") val price: Int?,
     @field:Json(name = "thumbnail") val thumbnail: String?,
-    @field:Json(name = "installments")val installments: ApiInstallment?
+    @field:Json(name = "installments")val installments: ApiInstallment?,
+    @field:Json(name = "permalink")val detailsUrl: String?
 )

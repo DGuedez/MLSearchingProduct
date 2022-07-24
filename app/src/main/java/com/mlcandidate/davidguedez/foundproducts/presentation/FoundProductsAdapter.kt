@@ -3,6 +3,7 @@ package com.mlcandidate.davidguedez.foundproducts.presentation
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import com.mlcandidate.davidguedez.common.utils.setImage
 import javax.inject.Inject
 
-class FoundProductsAdapter @Inject constructor() :
+class FoundProductsAdapter @Inject constructor(val listenerCallback: (String) -> Unit) :
     ListAdapter<UIProduct, FoundProductsAdapter.FoundProductsVieWHolder>(ITEM_COMPARATOR) {
 
     companion object {
@@ -33,6 +34,7 @@ class FoundProductsAdapter @Inject constructor() :
         val item: UIProduct = getItem(position)
         val context = holder.itemView.context
         holder.bind(item, context)
+        holder.itemView.setOnClickListener { listenerCallback(item.detailUrlLink) }
     }
 
     inner class FoundProductsVieWHolder(private val binding: RecyclerViewFoundProductBinding) :
