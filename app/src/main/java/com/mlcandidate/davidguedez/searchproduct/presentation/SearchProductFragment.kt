@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.mlcandidate.davidguedez.R
 import com.mlcandidate.davidguedez.common.presentation.Event
+import com.mlcandidate.davidguedez.common.presentation.FetchProductsQueryViewModel
 import com.mlcandidate.davidguedez.databinding.FragmentSearchProductBinding
 import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchProductFragment : Fragment() {
     private var _binding: FragmentSearchProductBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SearchProductViewModel by activityViewModels()
+    private val viewModel: FetchProductsQueryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
