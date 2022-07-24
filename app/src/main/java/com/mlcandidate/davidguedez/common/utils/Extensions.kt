@@ -1,6 +1,10 @@
 package com.mlcandidate.davidguedez.common.utils
 
+import android.widget.ImageView
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.mlcandidate.davidguedez.R
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -26,4 +30,13 @@ inline fun CoroutineScope.createExceptionHandler(
     launch {
         action(throwable)
     }
+}
+
+fun ImageView.setImage(url: String) {
+    Glide.with(this.context)
+        .load(url.ifEmpty { null })
+        .error(R.drawable.ic_default_image_placeholder)
+        .centerCrop()
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
 }

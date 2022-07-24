@@ -5,22 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.mlcandidate.davidguedez.R
 import com.mlcandidate.davidguedez.common.presentation.Event
 import com.mlcandidate.davidguedez.databinding.FragmentSearchProductBinding
+import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchProductFragment : Fragment() {
     private var _binding: FragmentSearchProductBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SearchProductViewModel by viewModels()
+    private val viewModel: SearchProductViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,9 +48,21 @@ class SearchProductFragment : Fragment() {
     }
 
     private fun updateScreenState(viewState: SearchProductViewState) {
-        binding.productSearchProgressBar.isVisible = viewState.loading
-        handleFailures(viewState.failure)
-        handleNoProductFound(viewState.noProductFound)
+        val (loading, notProductFound, failure, productResults) = viewState
+        binding.productSearchProgressBar.isVisible = loading
+        handleFailures(failure)
+        handleNoProductFound(notProductFound)
+        handleProductResult(productResults)
+    }
+
+    private fun handleProductResult(productResults: List<UIProduct>) {
+        if (productResults.isNotEmpty()) {
+            goToProductsListSection()
+        }
+    }
+
+    private fun goToProductsListSection() {
+        findNavController().navigate(R.id.action_mainFragment_to_foundProductsResult)
     }
 
     private fun handleNoProductFound(noProductFoundEvent: Event<String>?) {
@@ -85,7 +98,7 @@ class SearchProductFragment : Fragment() {
             setOnQueryTextListener(
                 object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        viewModel.onEvent(SearchProductEvent.RequestSearch(query.orEmpty()))
+                        viewModel.onSearchProductEvent(SearchProductEvent.RequestSearch(query.orEmpty()))
                         return true
                     }
 
