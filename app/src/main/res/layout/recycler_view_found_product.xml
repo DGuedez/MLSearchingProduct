@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/default_card_size"
+    android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/card_vertical_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +33,7 @@
             android:layout_marginEnd="@dimen/card_title_start_end_space"
             android:textSize="@dimen/card_title_text_size"
             android:textStyle="bold"
+            android:layout_marginTop="@dimen/card_text_margin_vertical"
             app:layout_constraintBottom_toTopOf="@+id/found_product_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -71,6 +72,7 @@
             android:paddingHorizontal="@dimen/card_text_background_padding_size"
             android:textColor="@color/white"
             android:textSize="@dimen/card_text_size"
+            android:layout_marginBottom="@dimen/card_text_margin_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/found_product_installments"
             app:layout_constraintTop_toBottomOf="@+id/found_product_installments"
