@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mlcandidate.davidguedez.common.domain.model.NetworkException
+import com.mlcandidate.davidguedez.common.domain.model.NetworkUnavailableException
 import com.mlcandidate.davidguedez.common.presentation.mappers.UIProductMapper
 import com.mlcandidate.davidguedez.common.utils.DispatchersProvider
 import com.mlcandidate.davidguedez.common.utils.createExceptionHandler
@@ -82,8 +84,21 @@ class FetchProductsQueryViewModel @Inject constructor(
     private fun onFailure(failure: Throwable) {
         when (failure) {
             is EmptyQueryException -> updateEmptyQueryFailure()
+            is NetworkException,
+            is NetworkUnavailableException -> {
+                handleNetworkFailure(failure)
+            }
 
         }
+    }
+
+    private fun handleNetworkFailure(failure: Throwable) {
+        _state.value = state.value!!.copy(
+            loading = false,
+            noProductFound = null,
+            failure = Event(failure),
+            productResults = null
+        )
     }
 
     private fun updateEmptyQueryFailure() {
