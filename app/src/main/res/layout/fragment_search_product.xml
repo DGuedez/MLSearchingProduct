@@ -5,27 +5,37 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="16dp"
     android:background="@color/home_background"
+    android:paddingHorizontal="16dp"
     tools:context=".searchproduct.presentation.SearchProductFragment">
+
+    <ImageView
+        android:id="@+id/product_search_view_logo"
+        android:layout_width="@dimen/search_logo_size"
+        android:layout_height="@dimen/search_logo_size"
+        android:layout_marginTop="@dimen/search_logo_vertical_margin"
+        android:src="@drawable/ic_mercadolibre_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/product_search_view"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="@dimen/search_logo_vertical_margin"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_search_view_logo"
         app:queryHint="@string/search_hint" />
 
     <ProgressBar
         android:id="@+id/product_search_progress_bar"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
+        android:layout_marginTop="@dimen/search_logo_vertical_margin"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,14 +45,14 @@
         android:id="@+id/product_search_not_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/search_logo_vertical_margin"
         android:gravity="center_horizontal"
-        android:visibility="gone"
-        android:textStyle="bold"
-        android:lineSpacingExtra="10dp"
+        android:lineSpacingExtra="@dimen/text_line_spacing_extra"
         android:text="@string/no_product_result_found"
         android:textColor="@color/design_default_color_error"
-        android:textSize="20sp"
+        android:textSize="@dimen/search_advise_prompt_message_size"
+        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_search_view" />
