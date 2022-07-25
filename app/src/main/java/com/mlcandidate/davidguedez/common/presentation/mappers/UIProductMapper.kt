@@ -14,13 +14,9 @@ class UIProductMapper @Inject constructor() : UIMapper<Product, UIProduct> {
             thumbnail = input.thumbnail,
             installmentQuantity = getInstallmentQuantity(input),
             InstallmentAmount = getInstallmentAmount(input),
-            productFreeShipping = getShippingInfo(input.installments),
+            productFreeShipping = input.shipping.freeShipping,
             detailUrlLink = input.detailsUrl
         )
-    }
-
-    private fun getShippingInfo(installments: Installment): Boolean {
-        return installments is Installment.KNOWN && installments.shipping.freeShipping
     }
 
     private fun getInstallmentAmount(input: Product): String {
