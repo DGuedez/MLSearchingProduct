@@ -9,5 +9,11 @@
     <dimen name="card_text_size">12sp</dimen>
     <dimen name="card_text_background_padding_size">5dp</dimen>
     <dimen name="card_vertical_margin">1dp</dimen>
+    <dimen name="search_logo_vertical_margin">50dp</dimen>
+    <dimen name="progress_bar_size">60dp</dimen>
+    <dimen name="search_advise_prompt_message_size">20sp</dimen>
+    <dimen name="search_logo_size">100dp</dimen>
+    <dimen name="text_line_spacing_extra">10dp</dimen>
+
 
 </resources>
