@@ -55,10 +55,16 @@ class SearchProductFragment : Fragment() {
         handleProductResult(productResults)
     }
 
-    private fun handleProductResult(productResults: List<UIProduct>) {
-        if (productResults.isNotEmpty()) {
-            goToProductsListSection()
-        }
+    private fun handleProductResult(productResultListEvent: Event<List<UIProduct>>?) {
+        productResultListEvent?.getContentIfNotHandled().also {
+            it?.let { list ->
+                if (list.isNotEmpty()) {
+                    goToProductsListSection()
+                } else {
+                    showNotFoundProductPrompt()
+                }
+            }
+        } ?: hideNotFoundProductPrompt()
     }
 
     private fun goToProductsListSection() {
