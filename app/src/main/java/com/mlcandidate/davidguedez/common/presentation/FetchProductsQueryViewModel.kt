@@ -70,7 +70,7 @@ class FetchProductsQueryViewModel @Inject constructor(
             loading = false,
             noProductFound = null,
             failure = null,
-            productResults = productSearchResult
+            productResults = Event(productSearchResult)
         )
     }
 

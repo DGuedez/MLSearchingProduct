@@ -7,5 +7,5 @@ data class SearchProductViewState(
     val loading: Boolean = false,
     val noProductFound: Event<String>? = null,
     val failure: Event<Throwable>? = null,
-    val productResults : List<UIProduct> = emptyList()
+    val productResults : Event<List<UIProduct>>? = null
 )

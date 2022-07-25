@@ -22,11 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navigate = navController.navigateUp()
-        if (!navigate) {
-            finish()
-        }
-        return navigate
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
 }
