@@ -12,8 +12,7 @@ class ApiInstallmentsMapper @Inject constructor(private val apiShippingMapper: A
                 quantity = apiEntity.quantity
                     ?: throw MappingException("Installment Quantity can't be null"),
                 amount = apiEntity.amount
-                    ?: throw MappingException("Installment Amount can't be null"),
-                shipping = apiShippingMapper.mapToDomain(apiEntity.shipping)
+                    ?: throw MappingException("Installment Amount can't be null")
             )
         } else {
             Installment.UNKNOWN

@@ -10,5 +10,6 @@ data class ApiProduct(
     @field:Json(name = "price") val price: Int?,
     @field:Json(name = "thumbnail") val thumbnail: String?,
     @field:Json(name = "installments")val installments: ApiInstallment?,
-    @field:Json(name = "permalink")val detailsUrl: String?
+    @field:Json(name = "permalink")val detailsUrl: String?,
+    @field:Json(name = "shipping") val shipping: ApiShipping?
 )
