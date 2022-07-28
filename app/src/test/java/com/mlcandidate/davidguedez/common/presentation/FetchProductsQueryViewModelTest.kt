@@ -12,7 +12,6 @@ import com.mlcandidate.davidguedez.searchproduct.domain.RequestProductSearchUseC
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductEvent
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductViewState
 import com.google.common.truth.Truth.assertThat
-import com.mlcandidate.davidguedez.common.data.SearchProductRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
@@ -34,12 +33,11 @@ class FetchProductsQueryViewModelTest {
     val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     val testCoroutineScope = TestCoroutineScope(testCoroutineDispatcher)
-    
+
 
     @Mock
     lateinit var requestProductSearchUseCase: RequestProductSearchUseCase
 
-    @Mock
     lateinit var uiProductMapper: UIProductMapper
 
     @get:Rule
@@ -55,11 +53,9 @@ class FetchProductsQueryViewModelTest {
 
         setUpDispatcher()
         setProductValues()
-
         setUpViewModel()
 
     }
-
 
 
     private fun setProductValues() {
@@ -85,6 +81,7 @@ class FetchProductsQueryViewModelTest {
     }
 
     private fun setUpViewModel() {
+        uiProductMapper = UIProductMapper()
 
         val dispatchersProvider = object : DispatchersProvider {
             override fun io() = Dispatchers.Main
@@ -130,9 +127,9 @@ class FetchProductsQueryViewModelTest {
                 productResults = Event(expectedRemoteProducts)
 
             )
+            val expectedStateList = expectedViewState.productResults?.getContentIfNotHandled()
 
             `when`(requestProductSearchUseCase.invoke(query)).thenReturn(apiResult)
-
             //when
             val searchEvent = SearchProductEvent.RequestSearch(query)
             viewModel.onSearchProductEvent(searchEvent)
@@ -141,8 +138,12 @@ class FetchProductsQueryViewModelTest {
             verify(requestProductSearchUseCase, times(1)).invoke(query)
 
             val viewState = viewModel.state.value!!
+            val viewStateListResult = viewState.productResults?.getContentIfNotHandled()
 
-            assertThat(viewState.productResults).isNotSameInstanceAs(expectedViewState.productResults)
+            assertThat(viewStateListResult).isEqualTo(expectedStateList)
 
         }
+
+
+   
 }
