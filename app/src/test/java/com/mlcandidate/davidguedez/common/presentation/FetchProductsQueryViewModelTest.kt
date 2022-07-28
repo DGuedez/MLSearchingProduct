@@ -12,6 +12,10 @@ import com.mlcandidate.davidguedez.searchproduct.domain.RequestProductSearchUseC
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductEvent
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductViewState
 import com.google.common.truth.Truth.assertThat
+import com.mlcandidate.davidguedez.common.data.SearchProductRepository
+import com.mlcandidate.davidguedez.common.domain.model.NetworkException
+import io.mockk.*
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
@@ -19,23 +23,20 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
-import org.mockito.Mock
-import org.mockito.Mockito.*
-import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
+
 class FetchProductsQueryViewModelTest {
 
     lateinit var viewModel: FetchProductsQueryViewModel
 
-    val testCoroutineDispatcher = TestCoroutineDispatcher()
+    private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
-    val testCoroutineScope = TestCoroutineScope(testCoroutineDispatcher)
+    private val testCoroutineScope = TestCoroutineScope(testCoroutineDispatcher)
 
+    @MockK
+    lateinit var repository : SearchProductRepository
 
-    @Mock
     lateinit var requestProductSearchUseCase: RequestProductSearchUseCase
 
     lateinit var uiProductMapper: UIProductMapper
@@ -50,7 +51,7 @@ class FetchProductsQueryViewModelTest {
 
     @Before
     fun setup() {
-
+        MockKAnnotations.init(this)
         setUpDispatcher()
         setProductValues()
         setUpViewModel()
@@ -82,6 +83,8 @@ class FetchProductsQueryViewModelTest {
 
     private fun setUpViewModel() {
         uiProductMapper = UIProductMapper()
+
+        requestProductSearchUseCase = spyk(RequestProductSearchUseCase(repository))
 
         val dispatchersProvider = object : DispatchersProvider {
             override fun io() = Dispatchers.Main
@@ -118,8 +121,6 @@ class FetchProductsQueryViewModelTest {
             val expectedRemoteProducts = apiResult.map { uiProductMapper.mapToView(it) }
             val query = "someQueryWithText"
 
-            viewModel.state.observeForever { }
-
             val expectedViewState = SearchProductViewState(
                 loading = false,
                 noProductFound = null,
@@ -128,14 +129,14 @@ class FetchProductsQueryViewModelTest {
 
             )
             val expectedStateList = expectedViewState.productResults?.getContentIfNotHandled()
+            coEvery{repository.search(query)} returns apiResult
 
-            `when`(requestProductSearchUseCase.invoke(query)).thenReturn(apiResult)
             //when
             val searchEvent = SearchProductEvent.RequestSearch(query)
             viewModel.onSearchProductEvent(searchEvent)
 
             // then
-            verify(requestProductSearchUseCase, times(1)).invoke(query)
+            coVerify(exactly = 1){requestProductSearchUseCase.invoke(query)}
 
             val viewState = viewModel.state.value!!
             val viewStateListResult = viewState.productResults?.getContentIfNotHandled()
@@ -144,6 +145,63 @@ class FetchProductsQueryViewModelTest {
 
         }
 
+    @Test
+    fun onSearchProductEvent_queryWithValue_networkExceptionIsThrown()  =  testCoroutineScope.runBlockingTest{
+        //Given
+        val failureMessage = "messageFailure"
+        val expectedFailure = NetworkException(failureMessage)
+        val query = "someQueryWithText"
 
-   
+        coEvery { repository.search(query) } throws expectedFailure
+
+        //when
+        val searchEvent = SearchProductEvent.RequestSearch(query)
+        viewModel.onSearchProductEvent(searchEvent)
+
+        // then
+        coVerify{requestProductSearchUseCase.invoke(query)}
+
+        val viewState = viewModel.state.value!!
+        val viewStateFailureResult = viewState.failure?.getContentIfNotHandled()
+
+        assertThat(viewStateFailureResult).isInstanceOf(NetworkException::class.java)
+    }
+
+
+    @Test
+    fun getFoundProductList_noRemoteServiceCalled_productListIsNull() =
+        testCoroutineScope.runBlockingTest {
+
+            //when
+            val result = viewModel.getFoundProductList()
+
+            //then
+            coVerify { requestProductSearchUseCase wasNot called }
+            assertThat(result).isNull()
+        }
+
+    @Test
+    fun getFoundProductList_successServiceCall_productListIsObtained() =
+        testCoroutineScope.runBlockingTest {
+            //Given
+            val apiResult = listOf(product1, product2)
+            val expectedRemoteProducts = apiResult.map { uiProductMapper.mapToView(it) }
+            val query = "someQueryWithText"
+
+            viewModel.state.observeForever { }
+
+            coEvery {requestProductSearchUseCase.invoke(query)} returns apiResult
+
+            //when
+            val searchEvent = SearchProductEvent.RequestSearch(query)
+            viewModel.onSearchProductEvent(searchEvent)
+
+            val result = viewModel.getFoundProductList()
+
+            // then
+            coVerify{requestProductSearchUseCase.invoke(any())}
+
+            assertThat(result).isEqualTo(expectedRemoteProducts)
+
+        }
 }
