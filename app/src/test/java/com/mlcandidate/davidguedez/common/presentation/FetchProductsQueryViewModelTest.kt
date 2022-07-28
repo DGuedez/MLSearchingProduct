@@ -25,6 +25,7 @@ import org.junit.Rule
 import org.junit.Test
 
 
+@Suppress("DEPRECATION")
 class FetchProductsQueryViewModelTest {
 
     lateinit var viewModel: FetchProductsQueryViewModel

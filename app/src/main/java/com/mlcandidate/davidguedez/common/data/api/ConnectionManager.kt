@@ -6,6 +6,7 @@ import android.net.NetworkInfo
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 class ConnectionManager @Inject constructor(@ApplicationContext private val context: Context) {
 
     fun isConnected(): Boolean {
