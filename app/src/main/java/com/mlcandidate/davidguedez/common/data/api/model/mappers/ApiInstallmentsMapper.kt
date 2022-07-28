@@ -4,7 +4,7 @@ import com.mlcandidate.davidguedez.common.data.api.model.ApiInstallment
 import com.mlcandidate.davidguedez.common.domain.model.product.Installment
 import javax.inject.Inject
 
-class ApiInstallmentsMapper @Inject constructor(private val apiShippingMapper: ApiShippingMapper) :
+class ApiInstallmentsMapper @Inject constructor() :
     ApiMapper<ApiInstallment?, Installment> {
     override fun mapToDomain(apiEntity: ApiInstallment?): Installment {
         return if (apiEntity != null) {
