@@ -14,7 +14,6 @@ import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import com.mlcandidate.davidguedez.searchproduct.domain.RequestProductSearchUseCase
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductEvent
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductViewState
-import com.mlcandidate.davidguedez.searchproduct.presentation.model.EmptyQueryException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,11 +44,7 @@ class FetchProductsQueryViewModel @Inject constructor(
     fun getFoundProductList() = foundProductsResult
 
     private fun handleSearchQuery(query: String) {
-        if (query.isEmpty()) {
-            _state.value = state.value!!.copy(loading = false)
-        } else {
-            requestSearch(query)
-        }
+        requestSearch(query)
     }
 
     private fun requestSearch(query: String) {
@@ -83,7 +78,6 @@ class FetchProductsQueryViewModel @Inject constructor(
 
     private fun onFailure(failure: Throwable) {
         when (failure) {
-            is EmptyQueryException -> updateEmptyQueryFailure()
             is NetworkException,
             is NetworkUnavailableException -> {
                 handleNetworkFailure(failure)
@@ -100,12 +94,5 @@ class FetchProductsQueryViewModel @Inject constructor(
             productResults = null
         )
     }
-
-    private fun updateEmptyQueryFailure() {
-        _state.value = state.value!!.copy(
-            loading = false, noProductFound = null, failure = Event(EmptyQueryException())
-        )
-    }
-
 
 }
