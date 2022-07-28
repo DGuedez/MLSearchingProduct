@@ -15,6 +15,8 @@ Dentro de cada paquete se maneja *Clean Architecture*. De ser necesario, se incl
 - **Data** - Contiene clases que permiten tener acceso a las fuentes de datos. Los modelos de esta capa están directamente relacionados a la fuente y se traducen en modelos de la capa de Dominio mediante el uso de *mapeadores* (Mappers). En este proyecto la fuente de datos se orienta al uso solicitudes REST al API de Mercado Libre.
 - **Presentation**- Encapsula todo lo relacionado a la interfaz de usuario de cada vista de la aplicación. Se hace uso de la estructura de *"Flujo de datos Unidireccionales"* donde se definen eventos que genera el usuario y producen cambios de estados que son inmutables, ya que se evita la existencia de estados excluyentes al crearse la copia de un estado previo y luego se modifica el valor deseado con el cambio. En esta capa tambien se utilizan *Mappers* para transformar los modelos del dominio a modelos de *Interfaz de Usuario*
 
+- **Testing** - De forma adicional, se incluyen pruebas de integración desarrolladas en el viewModel (FetchProductsQueryViewModel) considerando el core de la aplicación. Se toma esta clase ya que involucra los manejos de estados que necesitan las vistas para mostrar información, así como el gatillado de acciones para tener acceso a dicha información.
+
 ## Librerías utilizadas
 
 - [Navigation Component] : Sirve para enlazar la navegacion entre las diferentes secciones de la aplicación. Para esto se implementó una Actividad base del que se crea un contenedor (*Navigation Host*) que sirve para intercambiar los fragmentos de los que se compone cada vista del app.
