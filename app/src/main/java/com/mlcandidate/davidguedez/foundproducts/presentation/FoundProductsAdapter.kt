@@ -3,15 +3,14 @@ package com.mlcandidate.davidguedez.foundproducts.presentation
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.mlcandidate.davidguedez.R
-import com.mlcandidate.davidguedez.databinding.RecyclerViewFoundProductBinding
 import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import com.mlcandidate.davidguedez.common.utils.setImage
+import com.mlcandidate.davidguedez.databinding.RecyclerViewFoundProductBinding
 import javax.inject.Inject
 
 class FoundProductsAdapter @Inject constructor(val listenerCallback: (String) -> Unit) :

@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.mlcandidate.davidguedez.common.domain.model.NetworkException
 import com.mlcandidate.davidguedez.common.domain.model.NetworkUnavailableException
 import com.mlcandidate.davidguedez.common.presentation.mappers.UIProductMapper
+import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import com.mlcandidate.davidguedez.common.utils.DispatchersProvider
 import com.mlcandidate.davidguedez.common.utils.createExceptionHandler
-import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import com.mlcandidate.davidguedez.searchproduct.domain.RequestProductSearchUseCase
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductEvent
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductViewState

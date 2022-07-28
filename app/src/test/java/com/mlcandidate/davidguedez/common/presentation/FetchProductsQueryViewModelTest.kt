@@ -3,6 +3,9 @@
 package com.mlcandidate.davidguedez.common.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.google.common.truth.Truth.assertThat
+import com.mlcandidate.davidguedez.common.data.SearchProductRepository
+import com.mlcandidate.davidguedez.common.domain.model.NetworkException
 import com.mlcandidate.davidguedez.common.domain.model.product.Installment
 import com.mlcandidate.davidguedez.common.domain.model.product.Product
 import com.mlcandidate.davidguedez.common.domain.model.product.Shipping
@@ -11,9 +14,6 @@ import com.mlcandidate.davidguedez.common.utils.DispatchersProvider
 import com.mlcandidate.davidguedez.searchproduct.domain.RequestProductSearchUseCase
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductEvent
 import com.mlcandidate.davidguedez.searchproduct.presentation.SearchProductViewState
-import com.google.common.truth.Truth.assertThat
-import com.mlcandidate.davidguedez.common.data.SearchProductRepository
-import com.mlcandidate.davidguedez.common.domain.model.NetworkException
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +23,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-
 
 
 class FetchProductsQueryViewModelTest {

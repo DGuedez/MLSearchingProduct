@@ -1,10 +1,8 @@
 package com.mlcandidate.davidguedez
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.mlcandidate.davidguedez.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

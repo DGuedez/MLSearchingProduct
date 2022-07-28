@@ -1,18 +1,18 @@
 package com.mlcandidate.davidguedez.foundproducts.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mlcandidate.davidguedez.R
-import com.mlcandidate.davidguedez.databinding.FragmentFoundProductsResultBinding
-import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
 import com.mlcandidate.davidguedez.common.presentation.FetchProductsQueryViewModel
+import com.mlcandidate.davidguedez.common.presentation.model.UIProduct
+import com.mlcandidate.davidguedez.databinding.FragmentFoundProductsResultBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
